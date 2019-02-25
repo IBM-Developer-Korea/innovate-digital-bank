@@ -37,7 +37,7 @@ kubectl create -f bank/yaml/bills
 kubectl create -f bank/yaml/portal
 ```
 
-### support 서비스 생성
+### Support 서비스 생성
 
 ``` bash
 kubectl create -f bank/yaml/support
@@ -53,4 +53,12 @@ kubectl create -f bank/yaml/transactions
 
 ``` bash
 kubectl create -f bank/yaml/userbase
+```
+
+## Helm을 이용하여 생성하기
+
+### MongoDB 생성
+
+``` bash
+helm install --name mongodb-helm ./mongodb/helm/mongodb
 ```
