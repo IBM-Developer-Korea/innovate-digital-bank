@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    prometheus.io/scrape: 'true'
+  name: "innovate-portal"
+spec:
+  type: NodePort
+  ports:
+  - port: 3100
+    nodePort: 30200
+  selector:
+    app: "innovate-portal-selector"

@@ -1,0 +1,41 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: "innovate-bills-deployment"
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  revisionHistoryLimit: 3
+  template:
+    metadata:
+      labels:
+        app: "innovate-bills-selector"
+    spec:
+      containers:
+      - name: "innovate-bills"
+        image: "aamine/innovate-bills:latest"
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 3800
+          initialDelaySeconds: 3000
+          periodSeconds: 1000
+        env:
+          - name: PORT
+            value : "3800"
+          - name: BASE_PATH
+            valueFrom:
+              configMapKeyRef:
+                name: "innovate-bank-configmap"
+                key: basePath
+          - name: MONGO_URL
+            valueFrom:
+              configMapKeyRef:
+                name: "innovate-bank-configmap"
+                key: mongoUrl
+

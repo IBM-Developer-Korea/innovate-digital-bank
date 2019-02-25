@@ -1,0 +1,40 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: "innovate-accounts-deployment"
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  revisionHistoryLimit: 3
+  template:
+    metadata:
+      labels:
+        app: "innovate-accounts-selector"
+    spec:
+      containers:
+      - name: "innovate-accounts"
+        image: "aamine/innovate-accounts:latest"
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 3400
+          initialDelaySeconds: 3000
+          periodSeconds: 1000
+        env:
+          - name: PORT
+            value : "3400"
+          - name: BASE_PATH
+            valueFrom:
+              configMapKeyRef:
+                name: "innovate-bank-configmap"
+                key: basePath
+          - name: MONGO_URL
+            valueFrom:
+              configMapKeyRef:
+                name: "innovate-bank-configmap"
+                key: mongoUrl

@@ -1,0 +1,70 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: "innovate-userbase-deployment"
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  revisionHistoryLimit: 3
+  template:
+    metadata:
+      labels:
+        app: "innovate-userbase-selector"
+    spec:
+      containers:
+      - name: "innovate-userbase"
+        image: "aamine/innovate-userbase:latest"
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 4100
+          initialDelaySeconds: 3000
+          periodSeconds: 1000
+        env:
+          - name: PORT
+            value : "4100"
+          - name: NODE_ENV
+            valueFrom:
+              configMapKeyRef:
+                name: "innovate-bank-configmap"
+                key: nodeEnv
+          - name: BASE_PATH
+            valueFrom:
+              configMapKeyRef:
+                name: "innovate-bank-configmap"
+                key: basePath
+          - name: MONGO_URL
+            valueFrom:
+              configMapKeyRef:
+                name: "innovate-bank-configmap"
+                key: mongoUrl
+          - name: CREATE_TRANSACTION_ENDPOINT
+            valueFrom:
+              configMapKeyRef:
+                name: "innovate-bank-configmap"
+                key: createTransactionEndpoint
+          - name: UPSERT_BILL_ENDPOINT
+            valueFrom:
+              configMapKeyRef:
+                name: "innovate-bank-configmap"
+                key: upsertBillEndpoint
+          - name: DROP_BILLS_ENDPOINT
+            valueFrom:
+              configMapKeyRef:
+                name: "innovate-bank-configmap"
+                key: dropBillsEndpoint
+          - name: DROP_TRANSACTIONS_ENDPOINT
+            valueFrom:
+              configMapKeyRef:
+                name: "innovate-bank-configmap"
+                key: dropTransactionsEndpoint
+          - name: GET_USERS_ENDPOINT
+            valueFrom:
+              configMapKeyRef:
+                name: "innovate-bank-configmap"
+                key: getUsersEndpoint

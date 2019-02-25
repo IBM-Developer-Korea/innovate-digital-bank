@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    prometheus.io/scrape: 'true'
+  name: "innovate-bills"
+spec:
+  type: NodePort
+  ports:
+  - port: 3800
+    nodePort: 30160
+  selector:
+    app: "innovate-bills-selector"

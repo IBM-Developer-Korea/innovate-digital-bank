@@ -1,0 +1,35 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: "innovate-support-deployment"
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  revisionHistoryLimit: 3
+  template:
+    metadata:
+      labels:
+        app: "innovate-support-selector"
+    spec:
+      containers:
+      - name: "innovate-support"
+        image: "aamine/innovate-support:latest"
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 4000
+          initialDelaySeconds: 3000
+          periodSeconds: 1000
+        env:
+          - name: PORT
+            value : "4000"
+          - name: BASE_PATH
+            valueFrom:
+              configMapKeyRef:
+                name: "innovate-bank-configmap"
+                key: basePath

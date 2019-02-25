@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    prometheus.io/scrape: 'true'
+  name: "innovate-transactions"
+spec:
+  type: NodePort
+  ports:
+  - port: 3600
+    nodePort: 30140
+  selector:
+    app: "innovate-transactions-selector"
