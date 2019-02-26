@@ -55,10 +55,43 @@ kubectl create -f bank/yaml/transactions
 kubectl create -f bank/yaml/userbase
 ```
 
+### 삭제
+
+``` bash
+kubectl delete -f bank/yaml/accounts
+kubectl delete -f bank/yaml/authentication
+kubectl delete -f bank/yaml/bills
+kubectl delete -f bank/yaml/portal
+kubectl delete -f bank/yaml/support
+kubectl delete -f bank/yaml/transactions
+kubectl delete -f bank/yaml/userbase
+```
+
+``` bash
+kubectl delete -f mongodb/yaml
+```
+
+``` bash
+kubectl delete -f bank/yaml/configmap.yaml
+```
+
 ## Helm을 이용하여 생성하기
 
 ### MongoDB 생성
 
 ``` bash
-helm install --name mongodb-helm ./mongodb/helm/mongodb
+helm install --name innovate-bank ./mongodb/helm/mongodb
+```
+
+### Bank 서비스 생성
+
+``` bash
+helm install --name test ./bank/helm/innovate-bank
+```
+
+### 삭제
+
+``` bash
+helm delete --purge innovate-bank
+helm delete --purge test
 ```

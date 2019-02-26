@@ -1,0 +1,11 @@
+# Default values for innovate-bank.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+config:
+  mongoUrl: "mongodb://mongo:mongo1234@innovate-bank-mongodb:27017/admin"
+  basePath: "168.1.140.116"
+  sessionSecret: "5a4e0d2c6198976aaff66bc8"
+  nodeEnv: production
+
+# ----
