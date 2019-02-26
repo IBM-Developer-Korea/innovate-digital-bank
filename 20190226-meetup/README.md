@@ -80,18 +80,33 @@ kubectl delete -f bank/yaml/configmap.yaml
 ### MongoDB 생성
 
 ``` bash
-helm install --name innovate-bank ./mongodb/helm/mongodb
+helm install --name test-db ./mongodb/helm/mongodb
 ```
 
 ### Bank 서비스 생성
 
 ``` bash
-helm install --name test ./bank/helm/innovate-bank
+helm install --name test-svc ./bank/helm/innovate-bank
 ```
 
 ### 삭제
 
 ``` bash
-helm delete --purge innovate-bank
-helm delete --purge test
+helm delete --purge test-db
+helm delete --purge test-svc
+```
+
+## Helm 차트 만들기 
+
+### 기본 템플릿 생성
+
+``` bash
+cd mongodb/helm
+helm create mongodb
+```
+
+### Dry Run
+
+``` bash
+helm install --dry-run --debug ./mongodb/helm/mongodb
 ```
