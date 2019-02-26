@@ -1,5 +1,14 @@
 # 2019.2.26 Meetup 자료
 
+## Kubernetes Cluster Public IP 확인하기
+
+``` bash
+ibmcloud cs workers <YOUR CLUSTER NAME>
+```
+
+* `bank/yaml/configmap.yaml` 파일의 `basePath` 항목에 Public IP를 입력.
+* `bank/helm/innovate-bank/values.yaml` 파일의 `basePath` 항목에 Public IP를 입력.
+
 ## kubectl을 이용하여 생성하기
 
 ### MongoDB 생성
