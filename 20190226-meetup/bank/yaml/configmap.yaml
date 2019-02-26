@@ -3,8 +3,8 @@ kind: ConfigMap
 metadata:
   name: "innovate-bank-configmap"
 data:
-  mongoUrl: "mongodb://mongo:mongo1234@innovate-bank-mongodb:27017/admin"
-  basePath: "168.1.140.116"
+  mongoUrl: "mongodb://mongo:mongo1234@test-db-mongodb:27017/admin"
+  basePath: "place your public IP"
   sessionSecret: "5a4e0d2c6198976aaff66bc8"
   nodeEnv: "production"
   signupEndpoint: "/api/user/create"
